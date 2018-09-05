@@ -1,0 +1,3 @@
+[submodule "datacite_csv_xml"]
+	path = datacite_csv_xml
+	url = https://github.com/unmrds/datacite_csv_xml.git
