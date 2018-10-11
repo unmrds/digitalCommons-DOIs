@@ -10,16 +10,14 @@ def oaiharvest(oaiurl, getset='', token=''):
     elif token != '':
         payload = {'verb': 'ListRecords', 'resumptionToken': token}
     r = requests.get(oaiurl, params=payload)
-    #print(r.url)
-    tree = ElementTree.fromstring(r.content)
-    recs = tree.find('dc_oai:ListRecords', ns)
+    root = ElementTree.fromstring(r.content)
+    recs = root.find('dc_oai:ListRecords', ns)
     items = recs.findall('dc_oai:record', ns)
     print(len(items))
     token = recs.find('dc_oai:resumptionToken', ns)
     if token.text is None:
         print('no more requests')
     else:
-        print(token.text)
         oaiharvest(oaiurl, token=token.text)
 
 
